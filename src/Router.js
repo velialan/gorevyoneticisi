@@ -1,52 +1,56 @@
 import * as React from 'react';
-import { View, Text,TouchableOpacity,useColorScheme } from 'react-native';
-import { NavigationContainer,DarkTheme,DefaultTheme } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {ThemeProvider} from 'styled-components';
 
 import AddTask from './Screens/AddTask';
 import Homes from './Screens/Home';
 import Tasks from './Screens/Tasks';
 
+import theme from './utils/theme';
 import { Grid, Plus, Home } from './Components/icons';
+import Box from './Components/box';
+
+
+
 
 
 
 const Tab = createBottomTabNavigator();
 function Router() {
-    const colorScheme = useColorScheme();
 
     return (
-        <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme} >
+        <ThemeProvider theme={theme}>
+        <NavigationContainer   >
             <Tab.Navigator
-                initialRouteName="AddTask"
+                initialRouteName="Home"               
                 tabBarOptions={{
                     activeTintColor: '#5F87E7',
+                    showLabel:false
                 }}>
                 <Tab.Screen
                     options={{
-                        tabBarLabel: 'Ana Sayfa',
+                        tabBarLabel: 'Home',
                         tabBarIcon: ({ color, size }) => (
                             <Home height={size} width={size} stroke={color} />
                         ),
                     }} name="Home" component={Homes} />
 
                 <Tab.Screen  options={{
-                    tabBarLabel: 'Görev Ekle',
-                    showlabel:false,
+                    tabBarLabel: 'AddTask',
 
                     tabBarIcon: ({ color, size }) => (
-                        <View style={{ bottom:8, width: 60, height: 60, borderRadius: 30, justifyContent: 'center', alignItems: 'center',backgroundColor:'#fff' }}>
-                            <View style={{   width: 40, height: 40, borderRadius: 20, justifyContent: 'center', alignItems: 'center',backgroundColor:color }}>
+                        <Box borderWidth={1} borderColor={color} mb={5} size={70} borderRadius="full" bg="white" justifyContent="center" alignItems="center" >
+                            <Box size={40} borderRadius="full" bg={color} justifyContent="center" alignItems="center" >
                             <Plus strokeWidth={3} height={size} width={size} stroke="#fff" />
-
-                            </View>
-                        </View>
+                            </Box>
+                        </Box>
                     ),
                 }} name="AddTask" component={AddTask} />
 
                 <Tab.Screen   options={{
-                    tabBarLabel: 'Görevler',
+                    tabBarLabel: 'Tasks',
                     tabBarIcon: ({ color, size }) => (
                         <Grid height={size} width={size} stroke={color} />
                     ),
@@ -54,6 +58,7 @@ function Router() {
 
             </Tab.Navigator>
         </NavigationContainer>
+        </ThemeProvider>
     );
 }
 
