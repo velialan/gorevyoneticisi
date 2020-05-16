@@ -1,5 +1,5 @@
 {
-  "name": "GorevYoneticisi",
+  "name": "gorevyoneticisi",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -7,17 +7,34 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "svgr": "svgr ./src/icons -d ./src/Components/icons --native --icon --svg-props 'width=24,height=24,className='"
   },
   "dependencies": {
+    "@react-native-community/masked-view": "^0.1.10",
+    "@react-navigation/bottom-tabs": "^5.4.4",
+    "@react-navigation/native": "^5.3.2",
+    "@react-navigation/stack": "^5.3.6",
     "react": "16.11.0",
     "react-native": "0.62.2",
-    "react-native-sqlite-storage": "^5.0.0"
+    "react-native-calendars": "^1.265.0",
+    "react-native-gesture-handler": "^1.6.1",
+    "react-native-reanimated": "^1.8.0",
+    "react-native-safe-area-context": "^1.0.0",
+    "react-native-safe-area-view": "^1.1.1",
+    "react-native-screens": "^2.7.0",
+    "react-native-sqlite-storage": "^5.0.0",
+    "react-native-svg": "^12.1.0",
+    "react-native-swipeable": "^0.6.0",
+    "styled-components": "^5.1.0",
+    "styled-system": "^5.1.5",
+    "websqlite": "^1.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
     "@babel/runtime": "^7.6.2",
     "@react-native-community/eslint-config": "^0.0.5",
+    "@svgr/cli": "^5.4.0",
     "babel-jest": "^24.9.0",
     "eslint": "^6.5.1",
     "jest": "^24.9.0",
