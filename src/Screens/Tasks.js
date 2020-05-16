@@ -1,15 +1,15 @@
 import React from 'react';
-import { Text, View } from 'react-native';
-
+import Box from '../Components/box';
+import { HeeaderContainer, HeaderInfo } from '../Components/header';
+import {HeeaderReminder} from '../Components/headerreminder';
 function Tasks() {
   return (
-    <View style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}>
-      <Text>Hello, Tasks!</Text>
-    </View>
+    <Box>
+        <HeeaderContainer p={10} >
+        <HeaderInfo />
+        <HeeaderReminder />
+      </HeeaderContainer>
+    </Box>
   );
 }
 export default Tasks
