@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { SafeAreaView, FlatList, StatusBar } from 'react-native';
+import { SectionList, FlatList, StatusBar } from 'react-native';
 import { CardTitle, CardContainer, CardCheck, CardDate, CardAlarm } from '../Components/card';
 import { HeeaderContainer, HeaderInfo } from '../Components/header';
 import Box from '../Components/box';
 import Text from '../Components/text';
-import {HeeaderReminder} from '../Components/headerreminder';
+import { HeeaderReminder } from '../Components/headerreminder';
 
 const DATA = [
   {
@@ -30,28 +30,28 @@ const DATA = [
     alarm: false
   },
   {
-    id: '3',
+    id: '4',
     title: 'Yazılım öğren',
     time: '11:00 AM',
     checked: true,
     alarm: false
   },
   {
-    id: '4',
+    id: '5',
     title: 'Yazılım öğren 4',
     time: '11:00 AM',
     checked: true,
     alarm: false
   },
   {
-    id: '5',
+    id: '6',
     title: 'Yazılım öğren 5',
     time: '11:00 AM',
     checked: true,
     alarm: false
   },
   {
-    id: '6',
+    id: '7',
     title: 'Yazılım öğren 6 ',
     time: '11:00 AM',
     checked: true,
@@ -63,21 +63,25 @@ const DATA = [
 function Home() {
   const [finish, setfinish] = React.useState(true)
   const [alarm, setalarm] = React.useState(true)
-  const renderHeader = () => {
-    return <Text px={8} py={10} fontSize={18} fontWeight="bold" color="#8B87B3">Bugün</Text>;
-  };
+  
   return (
 
     <Box flex={1}>
-<StatusBar backgroundColor='#5F87E7'/>
+      <StatusBar backgroundColor='#5F87E7' />
       <HeeaderContainer p={10} >
         <HeaderInfo />
         <HeeaderReminder />
       </HeeaderContainer>
-      <FlatList
-        style={{ flex: 1 }}
-        data={DATA}
-        ListHeaderComponent={renderHeader}
+
+      <SectionList
+
+        sections={[
+          { title: 'Bugün', data: DATA },
+          { title: 'Yarın', data: DATA },
+        ]}
+        renderSectionHeader={({ section }) => (
+          <Text px={8} py={10} fontSize={18} fontWeight="bold" color="#8B87B3">{section.title}</Text>
+        )}
         renderItem={({ item, index }) => (
           <Box index={index} px={8} py={5}>
             <CardContainer flexDirection='row' alignItems='center'>
@@ -87,7 +91,7 @@ function Home() {
               <CardAlarm onPress={() => setalarm(!alarm)} finish={alarm} />
             </CardContainer>
           </Box>)}
-        keyExtractor={item => item.id}
+        keyExtractor={(item, index) => index}
       />
     </Box>
   );
