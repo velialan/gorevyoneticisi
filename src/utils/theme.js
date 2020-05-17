@@ -8,7 +8,7 @@ const colors={
     datetextcolor:'#C6C6C8',
     textprimary:'#554E8F',
     gray:'#D9D9D9',
-    bgcolor:'#81C7F5'
+    bgcolor:'#81C7F5'    
 }
 const radii={
     normal:6,
