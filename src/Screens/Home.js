@@ -1,69 +1,102 @@
-import React, { useState } from 'react';
-import { SectionList, FlatList, StatusBar } from 'react-native';
-import { CardTitle, CardContainer, CardCheck, CardDate, CardAlarm } from '../Components/card';
-import { HeeaderContainer, HeaderInfo } from '../Components/header';
-import Box from '../Components/box';
-import Text from '../Components/text';
-import { HeeaderReminder } from '../Components/headerreminder';
+import React, { useEffect } from 'react';
+import { StatusBar } from 'react-native';
+import { HeeaderContainer, HeaderInfo } from '../Components/header';//header componentimiz
+import Box from '../Components/box';//box (View) styled system components import ettik
+import { HeeaderReminder } from '../Components/headerreminder'; //hatırlatıcıyı import ediyoruz
+import Data from '../sqlite/data'//sqlite da CRUD işlemlerini kolaylaştıran kütübhane kod kalabalığından kurtarır
+import DayTaskComponent from '../Components/daytaskcomponent';//componentlerimizi impor ediyoruz
+var service = new Data();
 
-const DATA = [
-  {
-    id: '1',
-    title: 'Proje gönderilecek',
-    time: '07:00 AM',
-    checked: true,
-    alarm: true
-
-  },
-  {
-    id: '2',
-    title: 'Ders çalışma vakti',
-    time: '10:53 PM',
-    checked: false,
-    alarm: false
-  },
-  {
-    id: '3',
-    title: 'Yazılım öğren',
-    time: '11:00 AM',
-    checked: true,
-    alarm: false
-  },
-  {
-    id: '4',
-    title: 'Yazılım öğren',
-    time: '11:00 AM',
-    checked: true,
-    alarm: false
-  },
-  {
-    id: '5',
-    title: 'Yazılım öğren 4',
-    time: '11:00 AM',
-    checked: true,
-    alarm: false
-  },
-  {
-    id: '6',
-    title: 'Yazılım öğren 5',
-    time: '11:00 AM',
-    checked: true,
-    alarm: false
-  },
-  {
-    id: '7',
-    title: 'Yazılım öğren 6 ',
-    time: '11:00 AM',
-    checked: true,
-    alarm: false
-  },
-
-];
 
 function Home() {
-  const [finish, setfinish] = React.useState(true)
-  const [alarm, setalarm] = React.useState(true)
-  
+
+
+  service.init();//veri tabanımız oluşturuldu
+
+  useEffect(() => {
+//görevler tablosu oluşturuldu
+    service.createTable("gorevler", [
+      {
+        name: 'id',
+        dataType: 'integer',
+        isNotNull: true,
+        options: 'PRIMARY KEY AUTOINCREMENT'
+      },
+      {
+        name: 'title',
+        dataType: 'text',
+        isNotNull: false,
+
+      },
+      {
+        name: 'date',
+        dataType: 'text',
+        isNotNull: false,
+
+      },
+      {
+        name: 'time',
+        dataType: 'text',
+        isNotNull: false,
+
+      },
+      {
+        name: 'alarm',//alarm olacak mı olmayacak mı
+        dataType: 'Boolean',
+        isNotNull: false,
+
+      },
+      {
+        name: 'completed',//tamamlanma durumu
+        dataType: 'Boolean',
+        isNotNull: false,
+
+      },
+      //join işlemleri için kategori_id
+      // {
+      //   name: 'catagory_id',
+      //   dataType: 'integer',
+      //   isNotNull: false,
+
+      // }
+    ])
+    //kategori işlemleri tablosu
+    // service.createTable("kategori", [
+    //   {
+    //     name: 'id',
+    //     dataType: 'integer',
+    //     isNotNull: true,
+    //     options: 'PRIMARY KEY AUTOINCREMENT'
+    //   },
+    //   {
+    //     name: 'title',
+    //     dataType: 'text',
+    //     isNotNull: false,
+
+    //   },     
+    // ])
+    //kategori işlemleri kayıtları
+    // service.insert("kategori", { 
+    //   title: "Kişisel",     
+    // })
+    // service.insert("kategori", {
+    //   title: "İş",     
+    // })
+    // service.insert("kategori", {
+    //   title: "Toplantı",     
+    // })
+    // service.insert("kategori", {
+    //   title: "Ders",     
+    // })
+    // service.insert("kategori", {
+    //   title: "Alışveriş",     
+    // })
+    // service.insert("kategori", {
+    //   title: "Diğer",     
+    // })
+
+  }, []);
+
   return (
 
     <Box flex={1}>
@@ -72,27 +105,8 @@ function Home() {
         <HeaderInfo />
         <HeeaderReminder />
       </HeeaderContainer>
+      <DayTaskComponent />
 
-      <SectionList
-
-        sections={[
-          { title: 'Bugün', data: DATA },
-          { title: 'Yarın', data: DATA },
-        ]}
-        renderSectionHeader={({ section }) => (
-          <Text px={8} py={10} fontSize={18} fontWeight="bold" color="#8B87B3">{section.title}</Text>
-        )}
-        renderItem={({ item, index }) => (
-          <Box index={index} px={8} py={5}>
-            <CardContainer flexDirection='row' alignItems='center'>
-              <CardCheck onPress={() => setfinish(!finish)} bg={finish ? 'white' : 'checkcontainercolor'} finish={finish} />
-              <CardDate px={5}>{item.time}</CardDate>
-              <CardTitle>{item.title}</CardTitle>
-              <CardAlarm onPress={() => setalarm(!alarm)} finish={alarm} />
-            </CardContainer>
-          </Box>)}
-        keyExtractor={(item, index) => index}
-      />
     </Box>
   );
 }

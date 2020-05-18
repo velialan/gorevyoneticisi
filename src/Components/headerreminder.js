@@ -1,13 +1,27 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Box from '../Components/box';
 import Text from '../Components/text';
 import Button from '../Components/button';
 import { Image } from 'react-native';
 import Close from './icons/X';
 import Notification from '../assets/user/notification.png';
+// import Data from '../sqlite/data'
+// var service = new Data();
 
 export function HeeaderReminder({ children, ...props }) {
     const [visible, setvisible] = useState(true)
+    //eğer veri varsa yoksa durumu için veri tabanından tamamlanmayan ilk kayıtın ekrana basılması
+    // const [tasklist, settasklist] = useState([]);
+
+    // useEffect(() => {
+    //     refresh()
+    //   })
+    
+    //   const refresh = async () => {
+    //     var result = await service.select("gorevler","*")
+    //     settasklist(result)
+    //     console.log(result)
+    //   }
     return (
         <Box>
             {

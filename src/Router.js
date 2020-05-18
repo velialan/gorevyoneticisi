@@ -11,11 +11,6 @@ import { View } from 'react-native';
 import theme from './utils/theme';
 import { Grid, Plus, Home } from './Components/icons';
 import Box from './Components/box';
-
-
-
-
-
 const CreatePlaceholder = () => (
     <View style={{ flex: 1, backgroundColor: 'blue' }} />
 );
@@ -25,7 +20,7 @@ function Router() {
 
         <Tab.Navigator
 
-            initialRouteName="Tasks"
+            initialRouteName="Home"
             tabBarOptions={{
                 activeTintColor: '#5F87E7',
                 showLabel: false,

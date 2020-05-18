@@ -10,7 +10,7 @@ export default class Data {
      */
     init() {
         SQLiteManager.init({
-            id: 'example',
+            id: 'taskmanager',
             dbObject: SQLite,
         })
     }
@@ -69,6 +69,7 @@ export default class Data {
         var whereValue = where[whereKey]
 
         SQLiteManager.delete(tableName, whereKey + " = ?", [whereValue])
+        console.log(whereKey)
     }
 
     /**

@@ -1,3 +1,6 @@
+//template renklerimiz 
+
+//space içi boş olduğu için tema varsayılanları kullanılır
 const space=[]
 
 const colors={
