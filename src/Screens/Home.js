@@ -14,7 +14,7 @@ function Home() {
   service.init();//veri tabanımız oluşturuldu
 
   useEffect(() => {
-//görevler tablosu oluşturuldu
+    //görevler tablosu oluşturuldu
     service.createTable("gorevler", [
       {
         name: 'id',
@@ -25,30 +25,39 @@ function Home() {
       {
         name: 'title',
         dataType: 'text',
-        isNotNull: false,
+        isNotNull: false,//test ortamında sıkıntı çıkarmaması için şimdilik tanımlandı
 
       },
       {
         name: 'date',
         dataType: 'text',
-        isNotNull: false,
+        isNotNull: false,//test ortamında sıkıntı çıkarmaması için şimdilik tanımlandı
 
       },
       {
         name: 'time',
         dataType: 'text',
-        isNotNull: false,
+        isNotNull: false,//test ortamında sıkıntı çıkarmaması için şimdilik tanımlandı
 
       },
       {
         name: 'alarm',//alarm olacak mı olmayacak mı
         dataType: 'Boolean',
-        isNotNull: false,
+        isNotNull: false,//test ortamında sıkıntı çıkarmaması için şimdilik tanımlandı
 
       },
       {
         name: 'completed',//tamamlanma durumu
         dataType: 'Boolean',
+        isNotNull: false,//test ortamında sıkıntı çıkarmaması için şimdilik tanımlandı
+
+      },
+      {
+        //alarmda her hafta, her gün, ve her ay, kullanımı için gerekli.
+        //1=> hergün 2=> her hafta 3=> her ay için değer gelecek default value=> 0
+        //0=> sadece anlık 1 defaya mahsus görevler için
+        name: 'taststatus',
+        dataType: 'integer',
         isNotNull: false,
 
       },
