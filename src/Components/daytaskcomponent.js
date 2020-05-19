@@ -25,7 +25,6 @@ function DayTaskComponent() {
     }
     return (
         <SectionList
-
             sections={[
                 { title: 'Bugün', data: tasklist },
                 { title: 'Yarın', data: tasklist },
@@ -35,7 +34,7 @@ function DayTaskComponent() {
             )}
             renderItem={({ item, index }) =>
                 <CardContainer  index={index} mx={5} my={5} flexDirection='row' alignItems='center'>
-                    <CardCheck onPress={() => completedtask(item.id)} bg={item.completed ? 'white' : 'checkcontainercolor'} finish={item.completed} />
+                    <CardCheck onPress={() => completedtask(item.id)} bg={item.completed ? 'checkcontainercolor' : 'white'} finish={item.completed} />
                     <CardDate px={5}>{item.time}</CardDate>
                     <CardTitle>{item.title}</CardTitle>
                     <CardAlarm onPress={() => createalarm(item.id)} finish={item.alarm} />
