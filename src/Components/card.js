@@ -35,7 +35,7 @@ export function CardContainer({ children, ...props }) {
 
 export function CardCheck({ finish, ...props }) {
     return (
-        <Button size={40} {...props} borderRadius="full" borderWidth={3} borderColor={finish ? 'gray' : 'white'} justifyContent="center" alignItems="center">
+        <Button size={40} {...props} borderRadius="full" borderWidth={3} borderColor={finish ? 'white' : 'gray'} justifyContent="center" alignItems="center">
             <Check width={20} height={20} stroke="white" />
         </Button>
     );
@@ -49,7 +49,7 @@ export function CardAlarm({ finish, ...props }) {
     return (
         <Box  {...props} flex={1} alignItems="flex-end" >
             <Button size={40}>
-                <Bell width={30} {...props} height={30} stroke={finish ? 'gray' : '#FFDC00'} />
+                <Bell width={30} {...props} height={30} stroke={finish ? '#FFDC00' : 'gray'} />
             </Button>
         </Box>
     )
