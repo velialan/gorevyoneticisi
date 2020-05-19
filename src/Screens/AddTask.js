@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Box from '../Components/box';
-import { FlatList, ScrollView, Alert } from 'react-native';
+import { FlatList, ScrollView, Alert, useWindowDimensions } from 'react-native';//takvim için cihaz genişliğini aldık {useWindowDimensions}
 import Text from '../Components/text';
 import Button from '../Components/button';
 import moment from 'moment';//gelen tarihi parse etmek için
@@ -68,12 +68,23 @@ function Item({ id, title, selected, onSelect }) {
   );
 }
 
-function AddTask() {
+//react navigationdan ile bize Router'dan {navigation} geldi bu sayede ekran geçişlerini yapabiliyoruz
+function AddTask({ navigation }) {
   const [text, settext] = useState("");
   const [selected, setSelected] = useState(new Map());
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [tarih, settarih] = useState([]);
   const [saat, setsaat] = useState("");
+  const [alarm, setalarm] = useState(false);
+
+  const [herGun, setherGun] = useState(false);
+  const [herHafta, setherHafta] = useState(false);
+  const [herAy, setherAy] = useState(false);
+
+  const [taskStatus, settaskStatus] = useState(0);//alarmda her hafta, her gün, ve her ay, kullanımı için gerekli.
+  //1=> hergün 2=> her hafta 3=> her ay için değer gelecek default value=> 0
+  //0=> sadece anlık 1 defaya mahsus görevler için
+
   //FlatList seçilen item
   const onSelect = React.useCallback(
     id => {
@@ -83,6 +94,7 @@ function AddTask() {
     },
     [selected],
   );
+
 
   //datetimepicker modal
 
@@ -102,17 +114,32 @@ function AddTask() {
   };
 
 
+  const windowWidth = useWindowDimensions().width;
+
+
   //Görev Ekleme
   const addtaskbutton = async () => {
+
 
     await service.insert("gorevler", {
       title: text,
       date: tarih.dateString,
       time: saat,
-      alarm: true,
-      completed: true,
+      alarm: alarm,//ana ekranda alarm simgesine dokunarak tanımlayabilecek extra screen gerekli
+      completed: false,//tamamlanma durumu ana ekrandan değiştirilecek dafaul olarak false
+     // taststatus:taskStatus//alarmda her hafta, her gün, ve her ay, kullanımı için gerekli.
+      //1=> hergün 2=> her hafta 3=> her ay için değer gelecek default value=> 0
+      //0=> sadece anlık 1 defaya mahsus görevler için
     })
-    Alert.alert('Görev Eklendi')
+    Alert.alert(
+      "Görev Ekleme",
+      "Görev başarıyla eklendi.",
+      [
+
+        { text: "Tamam", onPress: () => navigation.goBack() }//eklendiğinde ana ekrana dönmek
+      ],
+      { cancelable: false }
+    );
   }
   return (
     <Box flex={1} justifyContent="flex-end" >
@@ -149,7 +176,7 @@ function AddTask() {
             <CalendarList
               horizontal={true}
               pagingEnabled={true}
-              calendarWidth={360}
+              calendarWidth={windowWidth}
               onDayPress={(day) => showDatePicker(day)}
 
             />
@@ -164,11 +191,29 @@ function AddTask() {
             {/* //separator */}
 
             <Box height={2} mx={15} my={10} bg="#CFCFCF" />
+            <Button onPress={() => setalarm(!alarm)} mx={15} bg={!alarm ? 'gray' : '#1ED102'} p={10} height={20} borderRadius="normal" >
+              <Text fontSize={14} fontWeight="bold" color={!alarm ? 'black' : 'white'} textAlign="center">Alarm</Text>
+            </Button>
+
+            <Text fontWeight="bold" fontSize={16} color="black" mx={15} my={5}>Görev Zamanı</Text>
+            <Box mx={15} my={0} flex={1} flexDirection="row">
+              {/* // settaskStatus(herGun?0:1) içindeki herGun (boolean) stateti ile tekrardan dokunduğunda "hiç seçim yapmadığını bilmek için"  0 değerini set ettik.    */}
+              <Button mx={5} onPress={() => settaskStatus(herGun?0:1) & setherGun(!herGun) & setherHafta(false) & setherAy(false)} bg={!herGun ? 'gray' : '#1ED102'} p={10} height={20} borderRadius="normal" >
+                <Text fontSize={14} fontWeight="bold" color={!herGun ? 'black' : 'white'} textAlign="center">Her Gün</Text>
+              </Button>
+              <Button mx={5} onPress={() => settaskStatus(herHafta?0:2) & setherHafta(!herHafta) & setherGun(false) & setherAy(false)} bg={!herHafta ? 'gray' : '#1ED102'} p={10} height={20} borderRadius="normal" >
+                <Text fontSize={14} fontWeight="bold" color={!herHafta ? 'black' : 'white'} textAlign="center">Her Hafta</Text>
+              </Button>
+              <Button mx={5} onPress={() => settaskStatus(herAy?0:3) & setherAy(!herAy) & setherGun(false) & setherHafta(false)} bg={!herAy ? 'gray' : '#1ED102'} p={10} height={20} borderRadius="normal" >
+                <Text fontSize={14} fontWeight="bold" color={!herAy ? 'black' : 'white'} textAlign="center">Her Ay</Text>
+              </Button>
+            </Box>
 
             <Text fontSize={16} fontWeight="bold" textAlign="center">{tarih.dateString} {saat}</Text>
             <Button onPress={addtaskbutton} p={10} m={10} borderRadius="normal" bg="#7EB6FF" justifyContent="center" alignItems="center">
               <Text fontSize={18} color="white">Görev Ekle</Text>
             </Button>
+
 
           </Box>{/* scrolview */}
 
