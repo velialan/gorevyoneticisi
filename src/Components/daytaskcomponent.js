@@ -15,10 +15,10 @@ function DayTaskComponent() {
         tomorrow()
        // alert(gettomorrowDate())
     })
-    const getcurrentDate = (gunarttir=0) => {
+    const getcurrentDate = (deger=null) => {
 
         var zeromonth = '';// başına sıfır eklemek için (günlerin)
-        var date = new Date().getDate()+gunarttir;//10 dan küçükse başında 0 gelmiyor
+        var date = new Date().getDate()+ deger;//10 dan küçükse başında 0 gelmiyor
         var month = new Date().getMonth() + 1;
         var year = new Date().getFullYear();
         if (month < 10) {
@@ -27,18 +27,17 @@ function DayTaskComponent() {
             zeromonth = month;
         }
         return year + '-' + zeromonth + '-' + date;
-
     }
 
    
     //bugün yapılacaklar listesi
     const today = async () => {
-        var result = await service.select("gorevler","*",{date:getcurrentDate(0)})
+        var result = await service.select("gorevler","",{date:getcurrentDate(0)})
         settasklisttoday(result)
     }
     //yarın yapılacaklar litesi
     const tomorrow = async () => {
-        var result = await service.select("gorevler","*",{date:getcurrentDate(1)})
+        var result = await service.select("gorevler","",{date:getcurrentDate(1)})
         settasklisttomorrow(result)
     }
 
