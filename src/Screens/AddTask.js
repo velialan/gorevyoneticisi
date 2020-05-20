@@ -4,10 +4,10 @@ import { FlatList, ScrollView, Alert, useWindowDimensions } from 'react-native';
 import Text from '../Components/text';
 import Button from '../Components/button';
 import moment from 'moment';//gelen tarihi parse etmek için
-import TextInput from '../Components/textinput';
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import TextInput from '../Components/textinput'; //styled system (styled component) ile oluşturduğumuz input komponentini import ediyoruz
+import DateTimePickerModal from "react-native-modal-datetime-picker";//saat seçimi için
 import 'moment/locale/tr';//locale olarak tr seçtik ekrana türkçe basması için
-import { LocaleConfig, CalendarList } from 'react-native-calendars';
+import { LocaleConfig, CalendarList } from 'react-native-calendars';//takvim için kütüphanemizi import ettik.
 import Data from '../sqlite/data'//sqlite  CRUD işlemlerini kolaylaştırıcı kütüphane
 var service = new Data();
 
@@ -48,11 +48,12 @@ const Catagory = [
   },
 ];
 
-var Catagory_ID = 0;//özel kategori eklendiğinde sqlite tarafında inner join işlemleri için kategori_id sini alıyoruz
+var Catagory_ID = 0;//özel kategori eklendiğinde sqlite tarafında inner join işlemleri için kategori_id' sini alıyoruz
 function selectedItems(onSelect, id) {
-  onSelect(id)//seçileni belli etmek için
+  onSelect(id)//seçileni belli etmek için bgcolor için kullandık
   Catagory_ID = id;
 }
+//kategori listesi
 function Item({ id, title, selected, onSelect }) {
   var ColorCode = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
 
@@ -102,10 +103,11 @@ function AddTask({ navigation }) {
     settarih(date)
     setDatePickerVisibility(true);
   };
-
+  //takvim kapandığında işlenecek function
   const hideDatePicker = () => {
     setDatePickerVisibility(false);
   };
+  //takvimde seçim yapıldığında işlenecek function
 
   const handleConfirm = (date) => {
     hideDatePicker();
@@ -114,20 +116,18 @@ function AddTask({ navigation }) {
   };
 
 
-  const windowWidth = useWindowDimensions().width;
+  const windowWidth = useWindowDimensions().width;//cihaz genişliği
 
 
   //Görev Ekleme
-  const addtaskbutton = async () => {
-
-
-    await service.insert("gorevler", {
+  const addtaskbutton =  () => {
+     service.insert("gorevler", {
       title: text,
       date: tarih.dateString,
       time: saat,
       alarm: alarm,//ana ekranda alarm simgesine dokunarak tanımlayabilecek extra screen gerekli
       completed: false,//tamamlanma durumu ana ekrandan değiştirilecek dafaul olarak false
-     // taststatus:taskStatus//alarmda her hafta, her gün, ve her ay, kullanımı için gerekli.
+      //taststatus:taskStatus//alarmda her hafta, her gün, ve her ay, kullanımı için gerekli.
       //1=> hergün 2=> her hafta 3=> her ay için değer gelecek default value=> 0
       //0=> sadece anlık 1 defaya mahsus görevler için
     })
@@ -135,8 +135,7 @@ function AddTask({ navigation }) {
       "Görev Ekleme",
       "Görev başarıyla eklendi.",
       [
-
-        { text: "Tamam", onPress: () => navigation.goBack() }//eklendiğinde ana ekrana dönmek
+        { text: "Tamam", onPress: () => navigation.goBack() }//eklendiğinde ana ekrana dönmek için
       ],
       { cancelable: false }
     );
@@ -191,20 +190,21 @@ function AddTask({ navigation }) {
             {/* //separator */}
 
             <Box height={2} mx={15} my={10} bg="#CFCFCF" />
+            {/* alarm var yok */}
             <Button onPress={() => setalarm(!alarm)} mx={15} bg={!alarm ? 'gray' : '#1ED102'} p={10} height={20} borderRadius="normal" >
               <Text fontSize={14} fontWeight="bold" color={!alarm ? 'black' : 'white'} textAlign="center">Alarm</Text>
             </Button>
-
+            {/* hergün mü her ay mı her hafta mı seçimi için */}
             <Text fontWeight="bold" fontSize={16} color="black" mx={15} my={5}>Görev Zamanı</Text>
             <Box mx={15} my={0} flex={1} flexDirection="row">
               {/* // settaskStatus(herGun?0:1) içindeki herGun (boolean) stateti ile tekrardan dokunduğunda "hiç seçim yapmadığını bilmek için"  0 değerini set ettik.    */}
-              <Button mx={5} onPress={() => settaskStatus(herGun?0:1) & setherGun(!herGun) & setherHafta(false) & setherAy(false)} bg={!herGun ? 'gray' : '#1ED102'} p={10} height={20} borderRadius="normal" >
+              <Button mx={5} onPress={() => settaskStatus(herGun ? 0 : 1) & setherGun(!herGun) & setherHafta(false) & setherAy(false)} bg={!herGun ? 'gray' : '#1ED102'} p={10} height={20} borderRadius="normal" >
                 <Text fontSize={14} fontWeight="bold" color={!herGun ? 'black' : 'white'} textAlign="center">Her Gün</Text>
               </Button>
-              <Button mx={5} onPress={() => settaskStatus(herHafta?0:2) & setherHafta(!herHafta) & setherGun(false) & setherAy(false)} bg={!herHafta ? 'gray' : '#1ED102'} p={10} height={20} borderRadius="normal" >
+              <Button mx={5} onPress={() => settaskStatus(herHafta ? 0 : 2) & setherHafta(!herHafta) & setherGun(false) & setherAy(false)} bg={!herHafta ? 'gray' : '#1ED102'} p={10} height={20} borderRadius="normal" >
                 <Text fontSize={14} fontWeight="bold" color={!herHafta ? 'black' : 'white'} textAlign="center">Her Hafta</Text>
               </Button>
-              <Button mx={5} onPress={() => settaskStatus(herAy?0:3) & setherAy(!herAy) & setherGun(false) & setherHafta(false)} bg={!herAy ? 'gray' : '#1ED102'} p={10} height={20} borderRadius="normal" >
+              <Button mx={5} onPress={() => settaskStatus(herAy ? 0 : 3) & setherAy(!herAy) & setherGun(false) & setherHafta(false)} bg={!herAy ? 'gray' : '#1ED102'} p={10} height={20} borderRadius="normal" >
                 <Text fontSize={14} fontWeight="bold" color={!herAy ? 'black' : 'white'} textAlign="center">Her Ay</Text>
               </Button>
             </Box>
