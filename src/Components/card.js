@@ -11,21 +11,20 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';//dokunma efektle
 const renderRightActions = () => {
 
     return (
-        <Box width={70} height="100%" justifyContent="center" alignItems="center">
-            <Button size={50} borderRadius="full" bg="deletecontainer" justifyContent="center" alignItems="center">
+        <Box pr={15} justifyContent="center" alignItems="center">
+            <Button  size={50} borderRadius="full" bg="deletecontainer" justifyContent="center" alignItems="center">
                 <Trash2 width={20} height={20} stroke="#FB3636" />
             </Button>
         </Box>
     );
 };
 export function CardTitle({ children }) {
-    return <Text color='textprimary' fontSize={14} fontWeight="bold">{children}</Text>
+    return <Text color='textprimary' fontSize={14}  fontWeight="bold">{children}</Text>
 }
-export function CardContainer({ children, ...props }) {
+export function CardContainer({ children, ...props}) {
     return (
-        <Swipeable renderRightActions={renderRightActions}>
-
-            <Box bg="white" {...props} borderRadius="normal" py={25} px={12} borderLeftWidth={5} pl={5} borderLeftColor="#FFD506">
+        <Swipeable  renderRightActions={renderRightActions}>
+            <Box bg="white" {...props} mx={16} borderRadius="normal" py={15} px={4} borderLeftWidth={5} pl={5} borderLeftColor="#FFD506">
                 {children}
             </Box>
         </Swipeable>
