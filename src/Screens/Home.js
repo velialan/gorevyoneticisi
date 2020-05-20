@@ -9,11 +9,9 @@ var service = new Data();
 
 
 function Home() {
-
-
   service.init();//veri tabanımız oluşturuldu
+   useEffect(() => {
 
-  useEffect(() => {
     //görevler tablosu oluşturuldu
     service.createTable("gorevler", [
       {

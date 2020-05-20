@@ -10,7 +10,7 @@ export default class Data {
      */
     init() {
         SQLiteManager.init({
-            id: 'taskmanager',
+            id: 'taskmanagerr.db',
             dbObject: SQLite,
         })
     }
