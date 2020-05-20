@@ -60,12 +60,10 @@ function Item({ id, title, selected, onSelect }) {
   return (
     <Box height={50} p={10}>
       <Button bg={selected ? '#1ED102' : 'white'} height={40} borderRadius="normal" onPress={() => selectedItems(onSelect, id)} flex={1} p={10} flexDirection="row" alignItems="center" justifyContent="space-between">
-        {!selected ? <Box p={5} size={15} borderRadius="full" bg={ColorCode}></Box> : <Box></Box>
-        }
+        {!selected ? <Box p={5} size={15} borderRadius="full" bg={ColorCode}></Box> : <Box></Box>}
         <Text p={5} fontSize={16} color={!selected ? '#8E8E8E' : 'white'}>{title}</Text>
       </Button>
     </Box>
-
   );
 }
 
@@ -121,7 +119,7 @@ function AddTask({ navigation }) {
 
   //Görev Ekleme
   const addtaskbutton = async () => {
-  await service.insert("gorevler", {
+    await service.insert("gorevler", {
       title: text,
       date: tarih.dateString,
       time: saat,
