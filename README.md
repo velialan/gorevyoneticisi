@@ -9,5 +9,8 @@ $ yarn install
 $ npx react-native run-android
 ```
 theme:https://psdrepo.com/free-psd/adobe-xd-to-do-list-app-design-freebie/ </br>
-![enter image description here](https://github.com/velialan/gorevyoneticisi/blob/master/screenshot/task1.jpeg)
+![enter image description here](https://github.com/velialan/gorevyoneticisi/blob/master/screenshot/task1.jpeg) |  |
+|--|--|
+|  |  |
+
 
