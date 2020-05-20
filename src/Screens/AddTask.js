@@ -120,8 +120,8 @@ function AddTask({ navigation }) {
 
 
   //Görev Ekleme
-  const addtaskbutton =  () => {
-     service.insert("gorevler", {
+  const addtaskbutton = async () => {
+  await service.insert("gorevler", {
       title: text,
       date: tarih.dateString,
       time: saat,
