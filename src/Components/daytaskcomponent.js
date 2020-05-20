@@ -50,7 +50,7 @@ function DayTaskComponent() {
         tomorrow();
     }
     const createalarm = (id) => {
-        //sqlite üzerinde update işlemi alarm ekleme      
+        //sqlite üzerinde update işlemi {alarm}       
     }
     return (
         <SectionList
