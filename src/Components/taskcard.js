@@ -39,7 +39,7 @@ const renderContactsItem = ({ item, index }) => {
                     <Box as={Image} resizeMode="cover" style={{ height: 30, width: 30, borderRadius: 15 }} source={TaskImage} />
                 </Box>
                 <Text fontSize={18}>{item.title}</Text>
-                <Text fontSize={12} color="gray">{index + 5}</Text>
+                <Text fontSize={12} color="gray">{index + 5} Göreviniz Var</Text>
             </Button>
         </Box>
 
