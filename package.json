@@ -8,7 +8,9 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "svgr": "svgr ./src/icons -d ./src/Components/icons --native --icon --svg-props 'width=24,height=24,className='"
+    "svgr": "svgr ./src/icons -d ./src/Components/icons --native --icon --svg-props 'width=24,height=24,className='",
+    "gradlew": "cd android && ./gradlew clean && cd .."
+
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "^2.4.0",
