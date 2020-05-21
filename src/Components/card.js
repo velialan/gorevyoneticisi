@@ -12,18 +12,18 @@ const renderRightActions = () => {
 
     return (
         <Box pr={15} justifyContent="center" alignItems="center">
-            <Button  size={50} borderRadius="full" bg="deletecontainer" justifyContent="center" alignItems="center">
+            <Button size={50} borderRadius="full" bg="deletecontainer" justifyContent="center" alignItems="center">
                 <Trash2 width={20} height={20} stroke="#FB3636" />
             </Button>
         </Box>
     );
 };
-export function CardTitle({ children }) {
-    return <Text color='textprimary' fontSize={14}  fontWeight="bold">{children}</Text>
+export function CardTitle({ children, textdecoration }) {
+    return <Text style={{ textDecorationLine: textdecoration ? 'line-through' : 'none' }} color='textprimary' fontSize={14} fontWeight="bold">{children}</Text>
 }
-export function CardContainer({ children, ...props}) {
+export function CardContainer({ children, ...props }) {
     return (
-        <Swipeable  renderRightActions={renderRightActions}>
+        <Swipeable renderRightActions={renderRightActions}>
             <Box bg="white" {...props} mx={16} borderRadius="normal" py={15} px={4} borderLeftWidth={5} pl={5} borderLeftColor="#FFD506">
                 {children}
             </Box>
@@ -32,10 +32,10 @@ export function CardContainer({ children, ...props}) {
 
 }
 
-export function CardCheck({ finish, ...props }) {
+export function CardCheck({ ...props }) {
     return (
-        <Button size={40} {...props} borderRadius="full" borderWidth={3} borderColor={finish ? 'white' : 'gray'} justifyContent="center" alignItems="center">
-            <Check width={20} height={20} stroke="white" />
+        <Button size={30} {...props} borderRadius="full" borderWidth={3} justifyContent="center" alignItems="center">
+            <Check width={18} height={18} stroke="white" />
         </Button>
     );
 }
